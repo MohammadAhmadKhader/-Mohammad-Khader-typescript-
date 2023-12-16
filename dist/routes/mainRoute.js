@@ -12,22 +12,13 @@ exports.router.get("/", (req, res) => {
     res.send("Welcome to the library of Journey books, Please use the Query to find your favorite book!");
 });
 exports.router.get(`/search`, (0, express_async_handler_1.default)((req, res) => {
-    //@ts-ignore
     const bookName = req.query.name;
     const booksLibrary = returnBooksLibrary();
-    //@ts-ignore
     const booksArray = booksLibrary.books;
     const foundedBooks = booksArray.filter((book) => {
-        //@ts-ignore
         return book.name.startsWith(bookName) ? book : null;
     });
-    console.log(foundedBooks);
-    if (foundedBooks.length > 0) {
-        res.status(200).send(foundedBooks);
-    }
-    else {
-        res.status(404).send("Book was not found");
-    }
+    res.status(200).send(foundedBooks);
 }));
 function returnBooksLibrary() {
     const config = JSON.parse((0, fs_1.readFileSync)("./config.json", "utf-8"));

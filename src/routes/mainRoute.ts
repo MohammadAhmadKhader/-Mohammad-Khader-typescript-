@@ -8,29 +8,32 @@ router.get("/",(req,res) : void =>{
     res.send("Welcome to the library of Journey books, Please use the Query to find your favorite book!")
 })
 
+interface Book {
+    name:string,
+    author:string,
+    isbn:number
+}
+
+interface BooksLibrary {
+    books:Book[]
+}
 
 router.get(`/search`,asyncHandler((req,res) : void=>{
-    //@ts-ignore
-    const bookName : string = req.query.name;
-    const booksLibrary : object = returnBooksLibrary();
+   
+    const bookName  = req.query.name as string;
+    const booksLibrary = returnBooksLibrary(); 
     
-    //@ts-ignore
-    const booksArray : object[] = booksLibrary.books;
-    const foundedBooks = booksArray.filter((book : object) : object[] => {
+    const booksArray = booksLibrary.books;
+    const foundedBooks = booksArray.filter((book) => {
 
-        //@ts-ignore
         return book.name.startsWith(bookName)? book : null;
     });
-    console.log(foundedBooks);
-    if(foundedBooks.length > 0){
-        res.status(200).send(foundedBooks)
-    }else{
-        res.status(404).send("Book was not found");
-    }
     
+    res.status(200).send(foundedBooks)
 }))
 
-function returnBooksLibrary() : object{
-    const config : object = JSON.parse(readFileSync("./config.json","utf-8"));
+function returnBooksLibrary() : BooksLibrary{
+    const config : BooksLibrary = JSON.parse(readFileSync("./config.json","utf-8"));
     return config;
+
 }

@@ -10,3 +10,6 @@ app.use(express_1.default.json());
 const PORT = 3001;
 app.listen(PORT, () => console.log(`Server is running at Port : ${PORT}`));
 app.use(mainRoute_js_1.router);
+app.use((error, req, res, next) => {
+    res.status(500).json(`Error : ${error}`);
+});
