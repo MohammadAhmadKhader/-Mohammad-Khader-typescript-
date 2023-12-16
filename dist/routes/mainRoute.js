@@ -23,7 +23,7 @@ exports.router.get(`/search`, (0, express_async_handler_1.default)((req, res) =>
     });
     console.log(foundedBooks);
     if (foundedBooks.length > 0) {
-        res.status(200).send("Book was found");
+        res.status(200).send(foundedBooks);
     }
     else {
         res.status(404).send("Book was not found");

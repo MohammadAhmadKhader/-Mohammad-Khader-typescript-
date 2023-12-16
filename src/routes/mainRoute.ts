@@ -23,7 +23,7 @@ router.get(`/search`,asyncHandler((req,res) : void=>{
     });
     console.log(foundedBooks);
     if(foundedBooks.length > 0){
-        res.status(200).send("Book was found")
+        res.status(200).send(foundedBooks)
     }else{
         res.status(404).send("Book was not found");
     }
